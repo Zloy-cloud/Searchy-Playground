@@ -1,0 +1,120 @@
+:root {
+    --bg: #02040a;
+    --panel: rgba(10, 15, 30, 0.7);
+    --accent: #00eaff;
+    --accent-glow: rgba(0, 255, 255, 0.4);
+    --text: #eaffff;
+    --text-muted: #9bb8c9;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: radial-gradient(circle at top, #04101f, #02040a 60%, #000);
+    color: var(--text);
+    font-family: "Segoe UI", sans-serif;
+    overflow-x: hidden;
+}
+
+.wrapper {
+    width: 100%;
+    max-width: 1100px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* HERO */
+
+.hero {
+    padding: 60px 20px;
+    text-align: center;
+    transform: perspective(900px) rotateX(8deg);
+}
+
+.title {
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--accent);
+    text-shadow:
+        0 0 12px var(--accent),
+        0 0 40px var(--accent-glow);
+}
+
+.subtitle {
+    margin-top: 10px;
+    font-size: 16px;
+    color: var(--text-muted);
+}
+
+.hero-buttons {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 12px 22px;
+    border-radius: 999px;
+    font-size: 15px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn.primary {
+    background: linear-gradient(90deg, #00eaff, #0099ff);
+    color: #000;
+    box-shadow:
+        0 0 15px var(--accent-glow),
+        0 0 40px rgba(0, 150, 255, 0.4);
+}
+
+.btn.ghost {
+    border: 1px solid var(--accent-glow);
+    color: var(--accent);
+    background: transparent;
+}
+
+/* FEATURES */
+
+.features {
+    margin-top: 40px;
+    display: grid;
+    gap: 18px;
+}
+
+.feature-card {
+    background: var(--panel);
+    padding: 18px 20px;
+    border-radius: 16px;
+    border: 1px solid var(--accent-glow);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    transform: perspective(800px) rotateX(4deg);
+}
+
+.feature-card h3 {
+    font-size: 20px;
+    margin-bottom: 6px;
+    color: var(--accent);
+}
+
+.feature-card p {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+/* DESKTOP */
+
+@media (min-width: 768px) {
+    .features {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
