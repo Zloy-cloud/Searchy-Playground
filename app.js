@@ -1,7 +1,7 @@
 // === НАСТРОЙКИ ===
 // ПРИ ДЕПЛОЕ: поменяй на адрес бэка @feitov
 // Например: const API_BASE_URL = "https://your-backend.onrender.com";
-const API_BASE_URL = "http://localhost:5000";
+const API_BASE_URL = "https://backend-flask-rqsp.onrender.com";
 
 let authToken = null;
 
