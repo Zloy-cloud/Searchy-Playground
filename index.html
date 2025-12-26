@@ -3,43 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Wexar1on × feitov — AI Platform</title>
+    <title>Wexar1on × feitov — AI Code Studio</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="wrapper">
+<div class="page">
 
     <header class="hero">
-        <div class="hero-content">
+        <div class="hero-inner">
             <h1 class="title">Wexar1on × feitov</h1>
-            <p class="subtitle">AI‑платформа для разработки, анализа и улучшения кода</p>
+            <p class="subtitle">AI‑платформа для анализа и улучшения кода</p>
 
-            <div class="hero-buttons">
-                <a href="#" class="btn primary">Перейти в редактор</a>
-                <a href="#" class="btn ghost">Документация</a>
+            <div class="hero-actions">
+                <button class="btn primary" id="openEditorBtn">Перейти к редактору</button>
             </div>
         </div>
     </header>
 
-    <section class="features">
-        <div class="feature-card">
-            <h3>AI‑исправление кода</h3>
-            <p>Отправляй код — нейронка анализирует, исправляет и объясняет ошибки.</p>
-        </div>
+    <main class="main">
 
-        <div class="feature-card">
-            <h3>Генерация функций</h3>
-            <p>Пиши, что нужно — нейронка создаёт готовые фрагменты кода.</p>
-        </div>
+        <!-- Авторизация / токен -->
+        <section class="panel" id="authPanel">
+            <h2>Авторизация</h2>
+            <p class="hint">Для теста: <b>admin / password</b></p>
 
-        <div class="feature-card">
-            <h3>Совместная разработка</h3>
-            <p>Ты — фронтенд, @feitov — backend. Всё работает как единая система.</p>
-        </div>
-    </section>
+            <div class="field">
+                <label>Логин</label>
+                <input type="text" id="usernameInput" placeholder="username">
+            </div>
+
+            <div class="field">
+                <label>Пароль</label>
+                <input type="password" id="passwordInput" placeholder="password">
+            </div>
+
+            <button class="btn primary full" id="loginBtn">Получить токен</button>
+
+            <div class="token-info" id="tokenInfo"></div>
+        </section>
+
+        <!-- Редактор -->
+        <section class="panel" id="editorPanel">
+            <div class="panel-header">
+                <h2>Редактор кода</h2>
+                <span id="authStatus" class="badge badge-offline">Не авторизовано</span>
+            </div>
+
+            <div class="field">
+                <label>Код</label>
+                <textarea id="codeInput" rows="8" placeholder="Вставь сюда код, который нужно проанализировать..."></textarea>
+            </div>
+
+            <div class="actions-row">
+                <button class="btn secondary" id="sendChatBtn">Спросить нейронку</button>
+                <button class="btn secondary" id="sendSearchBtn">Спросить с веб‑поиском</button>
+            </div>
+
+            <div class="field">
+                <label>Ответ нейронки</label>
+                <pre id="replyOutput" class="output"></pre>
+            </div>
+        </section>
+
+    </main>
 
 </div>
 
+<script src="app.js"></script>
 </body>
 </html>
+
