@@ -65,6 +65,50 @@
             </div>
         </section>
 
+        <!-- Анализ файла -->
+        <section class="panel" id="fileAnalyzePanel">
+            <h2>Анализ файла</h2>
+
+            <div class="field">
+                <label>Выберите файл</label>
+                <input type="file" id="fileInput">
+            </div>
+
+            <button class="btn secondary full" id="analyzeFileBtn">Проанализировать файл</button>
+
+            <div class="field">
+                <label>Ответ нейронки</label>
+                <pre id="fileAnalyzeOutput" class="output"></pre>
+            </div>
+        </section>
+
+        <!-- Генерация файла -->
+        <section class="panel" id="fileGeneratePanel">
+            <h2>Генерация файла</h2>
+
+            <div class="field">
+                <label>Что создать?</label>
+                <textarea id="filePromptInput" rows="4" placeholder="Например: Создай файл с примером Python‑кода..."></textarea>
+            </div>
+
+            <div class="field">
+                <label>Имя файла</label>
+                <input type="text" id="fileNameInput" placeholder="generated.txt">
+            </div>
+
+            <button class="btn secondary full" id="generateFileBtn">Сгенерировать файл</button>
+        </section>
+
+        <!-- Настройки -->
+        <section class="panel" id="settingsPanel">
+            <h2>Настройки</h2>
+
+            <div class="field">
+                <label>Цвет фона</label>
+                <input type="color" id="bgPicker" value="#111111">
+            </div>
+        </section>
+
     </main>
 
 </div>
@@ -72,4 +116,5 @@
 <script src="app.js"></script>
 </body>
 </html>
+
 
