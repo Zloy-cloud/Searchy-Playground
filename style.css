@@ -7,6 +7,9 @@
     --text-muted: #9bb8c9;
     --danger: #ff6b81;
     --success: #4cd964;
+
+    /* Новый параметр — цвет фона, меняется через color picker */
+    --bg-color: #02040a;
 }
 
 * {
@@ -16,10 +19,12 @@
 }
 
 body {
-    background: radial-gradient(circle at top, #04101f, #02040a 60%, #000);
+    background: var(--bg-color);
+    background: radial-gradient(circle at top, #04101f, var(--bg-color) 60%, #000);
     color: var(--text);
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     overflow-x: hidden;
+    transition: background 0.4s ease;
 }
 
 .page {
@@ -124,6 +129,7 @@ body {
 
 input[type="text"],
 input[type="password"],
+input[type="file"],
 textarea {
     border-radius: 10px;
     border: 1px solid rgba(0, 255, 255, 0.25);
@@ -229,6 +235,23 @@ textarea {
     flex-wrap: wrap;
 }
 
+/* FILE PANELS — новые */
+
+#fileAnalyzePanel,
+#fileGeneratePanel,
+#settingsPanel {
+    margin-top: 10px;
+}
+
+input[type="color"] {
+    width: 60px;
+    height: 34px;
+    border-radius: 8px;
+    border: 1px solid var(--accent-soft);
+    cursor: pointer;
+    background: transparent;
+}
+
 /* DESKTOP */
 
 @media (min-width: 768px) {
@@ -258,4 +281,5 @@ textarea {
         flex: 1;
     }
 }
+
 
