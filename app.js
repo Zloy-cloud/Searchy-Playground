@@ -1,6 +1,4 @@
 // === НАСТРОЙКИ ===
-// ПРИ ДЕПЛОЕ: поменяй на адрес бэка @feitov
-// Например: const API_BASE_URL = "https://your-backend.onrender.com";
 const API_BASE_URL = "https://backend-flask-rqsp.onrender.com";
 
 let authToken = null;
@@ -18,6 +16,17 @@ const sendChatBtn = document.getElementById("sendChatBtn");
 const sendSearchBtn = document.getElementById("sendSearchBtn");
 
 const openEditorBtn = document.getElementById("openEditorBtn");
+
+// Новые элементы
+const fileInput = document.getElementById("fileInput");
+const analyzeFileBtn = document.getElementById("analyzeFileBtn");
+const fileAnalyzeOutput = document.getElementById("fileAnalyzeOutput");
+
+const filePromptInput = document.getElementById("filePromptInput");
+const fileNameInput = document.getElementById("fileNameInput");
+const generateFileBtn = document.getElementById("generateFileBtn");
+
+const bgPicker = document.getElementById("bgPicker");
 
 // Вспомогательные
 
@@ -186,3 +195,102 @@ openEditorBtn.addEventListener("click", () => {
     const editorPanel = document.getElementById("editorPanel");
     editorPanel?.scrollIntoView({ behavior: "smooth" });
 });
+
+
+// ===============================
+//      1. АНАЛИЗ ФАЙЛА
+// ===============================
+
+analyzeFileBtn.addEventListener("click", async () => {
+    if (!authToken) {
+        fileAnalyzeOutput.textContent = "Нет токена. Авторизуйся.";
+        return;
+    }
+
+    const file = fileInput.files[0];
+    if (!file) {
+        fileAnalyzeOutput.textContent = "Выберите файл.";
+        return;
+    }
+
+    fileAnalyzeOutput.textContent = "Отправляем файл в нейронку...";
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+        const res = await fetch(`${API_BASE_URL}/api/file/analyze`, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${authToken}`
+            },
+            body: formData
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            fileAnalyzeOutput.textContent = `Ошибка: ${data.error}`;
+            return;
+        }
+
+        fileAnalyzeOutput.textContent = data.reply;
+    } catch (err) {
+        console.error(err);
+        fileAnalyzeOutput.textContent = "Ошибка сети при анализе файла.";
+    }
+});
+
+
+// ===============================
+//      2. ГЕНЕРАЦИЯ ФАЙЛА
+// ===============================
+
+generateFileBtn.addEventListener("click", async () => {
+    if (!authToken) {
+        alert("Нет токена. Авторизуйся.");
+        return;
+    }
+
+    const prompt = filePromptInput.value.trim();
+    const filename = fileNameInput.value.trim() || "generated.txt";
+
+    if (!prompt) {
+        alert("Введите запрос для генерации файла.");
+        return;
+    }
+
+    try {
+        const res = await fetch(`${API_BASE_URL}/api/file/generate`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${authToken}`
+            },
+            body: JSON.stringify({ prompt, filename })
+        });
+
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        a.click();
+
+        URL.revokeObjectURL(url);
+    } catch (err) {
+        console.error(err);
+        alert("Ошибка при генерации файла.");
+    }
+});
+
+
+// ===============================
+//      3. СМЕНА ФОНА
+// ===============================
+
+bgPicker.addEventListener("input", (e) => {
+    document.documentElement.style.setProperty("--bg-color", e.target.value);
+});
+
